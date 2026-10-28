@@ -32,3 +32,8 @@
 ## 5 — Approved GitHub delivery
 - User explicitly approved pushing the completed project to MatteoSemi/Converter.
 - Preparing the source, test fixtures, evidence, and Mac setup scripts as the initial main-branch commit. Dependencies/virtual environments and generated distribution ZIPs remain excluded from Git.
+
+## 6 — Intel macOS 11 Big Sur setup route
+- Added MacPorts setup and a separate pinned Qt6.6.3.1 profile because the original Qt6.9.3 wheel requires macOS12+.
+- Verified every pinned Python dependency resolves to a compatible CPython3.12 Intel Big Sur wheel; recorded filenames and hashes.
+- Full58-test suite passes under the older Qt profile on Linux; native Mac testing remains outstanding.

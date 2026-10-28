@@ -53,3 +53,9 @@ Two fidelity defects discovered during visual inspection were repaired and regre
 ## Remaining limits
 
 No mathematical smooth-vector reconstruction guarantee; no native partial alpha in EPS; no portable embedded ICC colour policy in EPS; 16-bit/APNG/unapplied orientation and ambiguous DPI inputs require explicit preparation. Large detailed images can be expensive and are subject to estimates, confirmation and a 16-million-pixel hard limit. Some decode/comparison operations cannot stop mid-call. Smooth-mode colours and geometry can differ even at full colour precision. Use final-output previews and the exact pixel alternative where those tradeoffs matter.
+
+## Intel Big Sur compatibility follow-up
+
+The original Qt6.9.3 wheel requires macOS12+, so it cannot install on Big Sur. Added an explicit macOS11 dependency profile using Qt6.6.3.1 and a MacPorts system-package setup script. The official wheel metadata for Qt6.6.3.1 targets macOS11 universal2 (including Intel); VTracer/Pillow/cffi also supply compatible Intel wheels.
+
+All pinned dependencies in `requirements-macos11.txt` were successfully resolved and downloaded for **CPython3.12 / macOS11.0 / x86_64**, with binary wheels only. Filenames/hashes and method: `evidence/bigsur-dependency-check.json`. In a separate **Linux** venv using that dependency profile, the full suite passed **58 tests in24.78s**; results: `evidence/pytest-qt66-linux.xml`. Shell syntax checks passed for the setup/launch scripts. These are compatibility checks, not proof of installation or native GUI operation on macOS. MacPorts installation and its system packages still require validation on the user's Mac.

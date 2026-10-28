@@ -1,0 +1,20 @@
+# Intel macOS 11 Big Sur: Qt wheel platform verified on PyPI.
+cairocffi==1.7.1
+CairoSVG==2.8.2
+cffi==2.1.1
+cssselect2==0.10.1
+defusedxml==0.7.1
+iniconfig==2.3.1
+packaging==26.3
+pillow==11.3.0
+pluggy==1.7.0
+pycparser==3.12
+Pygments==2.21.0
+PySide6==6.6.3.1
+PySide6_Addons==6.6.3.1
+PySide6_Essentials==6.6.3.1
+pytest==8.4.2
+shiboken6==6.6.3.1
+tinycss2==1.5.1
+vtracer==0.6.12
+webencodings==0.6.1

@@ -7,7 +7,7 @@ name = "pngvector-local"
 version = "0.1.0"
 description = "Local PNG tracing to editable vector EPS with measured final-output previews"
 requires-python = ">=3.11,<3.14"
-dependencies = ["Pillow==11.3.0", "vtracer==0.6.12", "CairoSVG==2.8.2", "PySide6==6.9.3"]
+dependencies = ["Pillow==11.3.0", "vtracer==0.6.12", "CairoSVG==2.8.2", "PySide6==6.9.3; sys_platform != 'darwin' or platform_release >= '21'", "PySide6==6.6.3.1; sys_platform == 'darwin' and platform_release < '21'"]
 
 [project.scripts]
 pngvector = "pngvector.gui:main"

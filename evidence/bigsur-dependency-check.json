@@ -1,0 +1,85 @@
+{
+  "target": "CPython 3.12, macOS 11.0 x86_64 (Intel Big Sur)",
+  "method": "pip download --only-binary=:all: --platform macosx_11_0_x86_64 --python-version 312 --implementation cp --abi cp312 -r requirements-macos11.txt",
+  "result": "Every pinned dependency resolved and downloaded as a compatible wheel",
+  "wheel_count": 19,
+  "files": [
+    {
+      "filename": "PySide6-6.6.3.1-cp38-abi3-macosx_11_0_universal2.whl",
+      "sha256": "3d2ebb08a7744b59e1270e57f264a9ef5b45fccdc0328a9aeb50d890d6b3f4f2"
+    },
+    {
+      "filename": "PySide6_Addons-6.6.3.1-cp38-abi3-macosx_11_0_universal2.whl",
+      "sha256": "31135adc521ed6e3fdc8203507e7e9d72424d6b9ebd245d1189d991e90669d6a"
+    },
+    {
+      "filename": "PySide6_Essentials-6.6.3.1-cp38-abi3-macosx_11_0_universal2.whl",
+      "sha256": "6c16530b63079711783796584b640cc80a347e0b2dc12651aa2877265df7a008"
+    },
+    {
+      "filename": "cairocffi-1.7.1-py3-none-any.whl",
+      "sha256": "9803a0e11f6c962f3b0ae2ec8ba6ae45e957a146a004697a1ac1bbf16b073b3f"
+    },
+    {
+      "filename": "cairosvg-2.8.2-py3-none-any.whl",
+      "sha256": "eab46dad4674f33267a671dce39b64be245911c901c70d65d2b7b0821e852bf5"
+    },
+    {
+      "filename": "cffi-2.1.1-cp312-cp312-macosx_10_15_x86_64.whl",
+      "sha256": "c8c69575568085ba0b1b10c0249d779a214aea6f6522e949a0fc9fb0fcb449d0"
+    },
+    {
+      "filename": "cssselect2-0.10.1-py3-none-any.whl",
+      "sha256": "25cc4494d55985d6a6da359be48da6ce98c28dcbafa2314c383ace3fc32ec868"
+    },
+    {
+      "filename": "defusedxml-0.7.1-py2.py3-none-any.whl",
+      "sha256": "a352e7e428770286cc899e2542b6cdaedb2b4953ff269a210103ec58f6198a61"
+    },
+    {
+      "filename": "iniconfig-2.3.1-py3-none-any.whl",
+      "sha256": "9121e2c1fdb355232495be3194c8dfe87ccc2d5dee45947b78e68f499790d7a7"
+    },
+    {
+      "filename": "packaging-26.3-py3-none-any.whl",
+      "sha256": "d7193f7c8e4e93f444fde0262bf90af30e16fa0ad0ad44cb553c87339b23cd1c"
+    },
+    {
+      "filename": "pillow-11.3.0-cp312-cp312-macosx_10_13_x86_64.whl",
+      "sha256": "fdae223722da47b024b867c1ea0be64e0df702c5e0a60e27daad39bf960dd1e4"
+    },
+    {
+      "filename": "pluggy-1.7.0-py3-none-any.whl",
+      "sha256": "7dd7b0d8832ba3cb632c306926ded123429211b83641b35dc5c41ad2d34f9bec"
+    },
+    {
+      "filename": "pycparser-3.12-py3-none-any.whl",
+      "sha256": "a076f3f489b39b43ed13563a1dafe42447445bec2e294154ec5c57fcdda4c85e"
+    },
+    {
+      "filename": "pygments-2.21.0-py3-none-any.whl",
+      "sha256": "2363c69b61c4a97c838da3b130dcd6468f4848992b21a82f2a63ec34377137d9"
+    },
+    {
+      "filename": "pytest-8.4.2-py3-none-any.whl",
+      "sha256": "872f880de3fc3a5bdc88a11b39c9710c3497a547cfa9320bc3c5e62fbf272e79"
+    },
+    {
+      "filename": "shiboken6-6.6.3.1-cp38-abi3-macosx_11_0_universal2.whl",
+      "sha256": "2a8df586aa9eb629388b368d3157893083c5217ed3eb637bf182d1948c823a0f"
+    },
+    {
+      "filename": "tinycss2-1.5.1-py3-none-any.whl",
+      "sha256": "3415ba0f5839c062696996998176c4a3751d18b7edaaeeb658c9ce21ec150661"
+    },
+    {
+      "filename": "vtracer-0.6.12-cp312-cp312-macosx_10_12_x86_64.whl",
+      "sha256": "54d55afdcbc8ff64b2185e3579bcb0e055286fbfc825c4715237f08841278d91"
+    },
+    {
+      "filename": "webencodings-0.6.1-py3-none-any.whl",
+      "sha256": "7fab6269c8bf237c657876b52058ccb182e861518d1c695c1a9aaa8c1c105d5b"
+    }
+  ],
+  "native_macos_execution": "Not tested; Linux Qt6.6.3.1 full58-test run passed. MacPorts OS packages not installed/tested on a Mac."
+}

@@ -2,7 +2,7 @@
 
 A runnable Python desktop application and batch CLI. All image processing stays on your computer; no accounts, image uploads, paid APIs, fonts substituted for lettering, or background removal. EPS output is filled vector geometry, never an embedded PNG. Smooth reconstruction is **not lossless**. Always inspect the final EPS preview, particularly lettering, tiny marks, holes and colour boundaries.
 
-Mac users: start with [MAC_START_HERE.md](MAC_START_HERE.md) and the included macOS setup/launch scripts. Native macOS testing is still outstanding.
+Intel Big Sur users: use `scripts/setup-macports.sh` and `requirements-macos11.txt`; the main Qt pin requires macOS 12+. Mac users: start with [MAC_START_HERE.md](MAC_START_HERE.md) and the included macOS setup/launch scripts. Native macOS testing is still outstanding.
 
 ## Install and launch
 

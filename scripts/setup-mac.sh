@@ -6,6 +6,10 @@ if [[ "$(uname -s)" != "Darwin" ]]; then
   echo "This installer is for macOS. See README.md for Linux instructions." >&2
   exit 1
 fi
+if [[ "$(sw_vers -productVersion | cut -d. -f1)" -eq 11 ]]; then
+  echo "For Big Sur use: bash scripts/setup-macports.sh (see MAC_START_HERE.md)." >&2
+  exit 1
+fi
 export PATH="/opt/homebrew/bin:/usr/local/bin:$PATH"
 if ! command -v brew >/dev/null 2>&1; then
   echo "Install Homebrew from https://brew.sh, then run this script again." >&2
