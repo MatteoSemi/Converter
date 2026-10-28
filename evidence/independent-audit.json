@@ -1,0 +1,103 @@
+{
+  "tested_platform": "Debian GNU/Linux 13 x86-64, Python3.12.14, Ghostscript10.05.1",
+  "independent_large_positive": {
+    "dimensions": [
+      4096,
+      3072
+    ],
+    "pixels": 12582912,
+    "mode": "pixel",
+    "confirmed_large": true,
+    "vector_shapes": 1,
+    "final_EPS_render_metrics": {
+      "mae": 0.0,
+      "max_error": 0,
+      "changed_fraction": 0.0,
+      "substantial": false,
+      "note": "sRGB byte-space RGB differences against final rendering, >8/255 changed-pixel threshold; not perceptual or proof of detail preservation"
+    },
+    "source_sha256": "ac0eb36cb4aa6a88d9020ba80b661d30922534afcb66d114bec97eac77671ea6",
+    "EPS": "large/large-pixel/large.eps",
+    "report": "large/large-pixel/large.report.json"
+  },
+  "inflight_cancellation": {
+    "input_dimensions": [
+      4096,
+      3072
+    ],
+    "mode": "pixel",
+    "cancel_after_stage": "Building editable vector geometry",
+    "observed_seconds": 0.52893466,
+    "exception": "Cancelled",
+    "partial_outputs_remaining": 0
+  },
+  "retained_alpha_PDF": {
+    "file": "retain/partial edges-alpha/partial edges.pdf",
+    "probe": "pdfimages -list",
+    "exit_code": 0,
+    "stdout": "page   num  type   width height color comp bpc  enc interp  object ID x-ppi y-ppi size ratio\n--------------------------------------------------------------------------------------------\n",
+    "raster_images_listed": 0
+  },
+  "fractional_canvas_default_trace": {
+    "fixture": "thin corners dots",
+    "dimensions": [
+      131,
+      79
+    ],
+    "dpi": 96,
+    "final_EPS_mae": 0.0,
+    "final_EPS_max_error": 0,
+    "one_pixel_dot": [
+      111,
+      64
+    ],
+    "dot_render_RGB": [
+      0,
+      0,
+      0
+    ],
+    "horizontal_line_endpoints": [
+      [
+        7,
+        9
+      ],
+      [
+        118,
+        9
+      ]
+    ],
+    "vertical_line_endpoints": [
+      [
+        9,
+        15
+      ],
+      [
+        9,
+        65
+      ]
+    ],
+    "all_test_points_match": true
+  },
+  "embedded_EPS_graphics_state": {
+    "probe": "GS currentmatrix before and after running EPS with showpage disabled",
+    "before": [
+      1,
+      0,
+      0,
+      -1,
+      0,
+      842
+    ],
+    "after": [
+      1,
+      0,
+      0,
+      -1,
+      0,
+      842
+    ],
+    "equal_elements": true
+  },
+  "smoothing_warning_verified": true,
+  "scope_note": "Metrics are diagnostics, not a guarantee of smooth or semantic fidelity. These checks include actual final-file rendering and actual retained PDF structural image listing."
+}

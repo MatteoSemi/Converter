@@ -1,0 +1,58 @@
+{
+  "source": "/workspace/Converter/evidence/fixtures/blank.png",
+  "source_sha256": "06ec343f3b34525703959515c8416674294d13c9286a505e68b91a20a97234e7",
+  "source_unchanged": true,
+  "output": "blank.eps",
+  "options": {
+    "mode": "smooth",
+    "tracer": "auto",
+    "detail": 6,
+    "smoothing": 0.0,
+    "color_precision": 8,
+    "min_component": 0,
+    "alpha_policy": "ask",
+    "background": "#ffffff",
+    "dpi": null,
+    "max_pixels": 4000000,
+    "force_large": false
+  },
+  "width": 67,
+  "height": 43,
+  "dpi": 96.0,
+  "size_points": [
+    50.25,
+    32.25
+  ],
+  "path_count": 1,
+  "metrics": {
+    "mae": 0.0,
+    "max_error": 0,
+    "changed_fraction": 0.0,
+    "substantial": false,
+    "note": "sRGB byte-space RGB differences against final rendering, >8/255 changed-pixel threshold; not perceptual or proof of detail preservation"
+  },
+  "warnings": [
+    "EPS uses DeviceRGB sRGB numeric values; EPS has no portable embedded sRGB profile. Viewer/printer colour settings can change appearance.",
+    "Smooth tracing approximates raster artwork. Gradients/photos and antialiased lettering may produce many paths or visible differences; inspect enlarged previews. Lower path counts can reduce fidelity.",
+    "Preserve detail uses unsimplified traced contours (VTracer fitting=none, Potrace alphamax=0). Pixel stair steps can remain; the detail slider affects curve fitting only when smoothing is enabled."
+  ],
+  "inspection": {
+    "valid_header": true,
+    "bounding_box": [
+      0.0,
+      0.0,
+      51.0,
+      33.0
+    ],
+    "hires_bounding_box": [
+      0.0,
+      0.0,
+      50.25,
+      32.25
+    ],
+    "vector_only": true,
+    "raster_operators": [],
+    "interpreter_exit": 0
+  },
+  "preview_source": "final EPS via Ghostscript"
+}

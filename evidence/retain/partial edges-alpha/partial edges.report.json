@@ -1,0 +1,44 @@
+{
+  "source": "/workspace/Converter/evidence/fixtures/partial edges.png",
+  "source_sha256": "52bde279b5b81214503dccb737eb83ed275cea4bc0187dc6e24a7df767869159",
+  "source_unchanged": true,
+  "output": "partial edges.svg",
+  "options": {
+    "mode": "pixel",
+    "tracer": "auto",
+    "detail": 6,
+    "smoothing": 0.0,
+    "color_precision": 8,
+    "min_component": 0,
+    "alpha_policy": "retain",
+    "background": "#1872c3",
+    "dpi": null,
+    "max_pixels": 4000000,
+    "force_large": false
+  },
+  "width": 88,
+  "height": 62,
+  "dpi": 96.0,
+  "size_points": [
+    66.0,
+    46.5
+  ],
+  "path_count": 64,
+  "metrics": {
+    "mae": 0.20796676441837733,
+    "max_error": 1,
+    "changed_fraction": 0.0,
+    "substantial": false,
+    "note": "sRGB byte-space RGB differences against final rendering, >8/255 changed-pixel threshold; not perceptual or proof of detail preservation"
+  },
+  "warnings": [
+    "EPS was not created: partial alpha requires SVG/PDF. This explicit alternative uses pixel rectangles and preserves the pixel grid, not smooth reconstructed edges.",
+    "Pixel mode preserves the decoded sRGB grid and ignores smooth-trace detail, smoothing, colour precision and component-removal controls. Stair-stepped edges remain; rectangle counts and files can be very large."
+  ],
+  "inspection": {
+    "vector_only": true,
+    "format": "SVG/PDF rectangles, no EPS",
+    "preview_source": "SVG"
+  },
+  "preview_source": "SVG alpha alternative"
+}

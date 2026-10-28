@@ -1,0 +1,57 @@
+{
+  "source": "/workspace/Converter/evidence/fixtures/fully transparent.png",
+  "source_sha256": "e5ef3f9d49ad3a091309c0adaaed923515fc67fe11afe67cd31dc447e278c155",
+  "source_unchanged": true,
+  "output": "fully transparent.eps",
+  "options": {
+    "mode": "pixel",
+    "tracer": "auto",
+    "detail": 6,
+    "smoothing": 0.0,
+    "color_precision": 8,
+    "min_component": 0,
+    "alpha_policy": "ask",
+    "background": "#ffffff",
+    "dpi": null,
+    "max_pixels": 4000000,
+    "force_large": false
+  },
+  "width": 67,
+  "height": 43,
+  "dpi": 96.0,
+  "size_points": [
+    50.25,
+    32.25
+  ],
+  "path_count": 0,
+  "metrics": {
+    "mae": 0.0,
+    "max_error": 0,
+    "changed_fraction": 0.0,
+    "substantial": false,
+    "note": "sRGB byte-space RGB differences against final rendering, >8/255 changed-pixel threshold; not perceptual or proof of detail preservation"
+  },
+  "warnings": [
+    "EPS uses DeviceRGB sRGB numeric values; EPS has no portable embedded sRGB profile. Viewer/printer colour settings can change appearance.",
+    "Pixel mode preserves the decoded sRGB grid and ignores smooth-trace detail, smoothing, colour precision and component-removal controls. Stair-stepped edges remain; rectangle counts and files can be very large."
+  ],
+  "inspection": {
+    "valid_header": true,
+    "bounding_box": [
+      0.0,
+      0.0,
+      51.0,
+      33.0
+    ],
+    "hires_bounding_box": [
+      0.0,
+      0.0,
+      50.25,
+      32.25
+    ],
+    "vector_only": true,
+    "raster_operators": [],
+    "interpreter_exit": 0
+  },
+  "preview_source": "final EPS via Ghostscript"
+}

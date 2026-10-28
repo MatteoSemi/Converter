@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<ns0:svg xmlns:ns0="http://www.w3.org/2000/svg" version="1.1" width="131.506757986174pt" height="45.502338314608pt" viewBox="0 0 263 91">
+<ns0:path d="M0,0 L263,0 L263,91 L0,91 Z M83,19 L83,52 L140,52 L140,35 L154,35 L154,19 Z " fill="#FFFFFF" transform="translate(0,0)" />
+<ns0:path d="M0,0 L37,0 L37,33 L0,33 Z " fill="#FA0000" transform="translate(83,19)" />
+<ns0:path d="M0,0 L34,0 L34,16 L0,16 Z " fill="#0000FA" transform="translate(120,19)" />
+<ns0:path d="M0,0 L20,0 L20,17 L0,17 Z " fill="#00BE00" transform="translate(120,35)" />
+</ns0:svg>

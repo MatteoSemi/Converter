@@ -1,0 +1,59 @@
+{
+  "source": "/workspace/Converter/evidence/fixtures/gradient.png",
+  "source_sha256": "a71d7fdcabb1773427f80087f5303b685267d90ab98abe2f983196625e23979c",
+  "source_unchanged": true,
+  "output": "gradient.eps",
+  "options": {
+    "mode": "smooth",
+    "tracer": "auto",
+    "detail": 6,
+    "smoothing": 0.0,
+    "color_precision": 8,
+    "min_component": 0,
+    "alpha_policy": "ask",
+    "background": "#ffffff",
+    "dpi": null,
+    "max_pixels": 4000000,
+    "force_large": false
+  },
+  "width": 96,
+  "height": 48,
+  "dpi": 96.0,
+  "size_points": [
+    72.0,
+    36.0
+  ],
+  "path_count": 40,
+  "metrics": {
+    "mae": 9.84765625,
+    "max_error": 46,
+    "changed_fraction": 0.8350694444444444,
+    "substantial": true,
+    "note": "sRGB byte-space RGB differences against final rendering, >8/255 changed-pixel threshold; not perceptual or proof of detail preservation"
+  },
+  "warnings": [
+    "EPS uses DeviceRGB sRGB numeric values; EPS has no portable embedded sRGB profile. Viewer/printer colour settings can change appearance.",
+    "Smooth tracing approximates raster artwork. Gradients/photos and antialiased lettering may produce many paths or visible differences; inspect enlarged previews. Lower path counts can reduce fidelity.",
+    "Preserve detail uses unsimplified traced contours (VTracer fitting=none, Potrace alphamax=0). Pixel stair steps can remain; the detail slider affects curve fitting only when smoothing is enabled.",
+    "Substantial rendered differences detected. Inspect counters, thin lines, colour boundaries and enlarged differences before using this artwork."
+  ],
+  "inspection": {
+    "valid_header": true,
+    "bounding_box": [
+      0.0,
+      0.0,
+      72.0,
+      36.0
+    ],
+    "hires_bounding_box": [
+      0.0,
+      0.0,
+      72.0,
+      36.0
+    ],
+    "vector_only": true,
+    "raster_operators": [],
+    "interpreter_exit": 0
+  },
+  "preview_source": "final EPS via Ghostscript"
+}

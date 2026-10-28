@@ -1,0 +1,6 @@
+<?xml version='1.0' encoding='utf-8'?>
+<ns0:svg xmlns:ns0="http://www.w3.org/2000/svg" version="1.1" width="120.000000000000pt" height="84.000000000000pt" viewBox="0 0 160 112">
+<ns0:path d="M0,0 L68,0 L68,84 L0,84 L0,64 L45,64 L45,21 L0,21 Z " fill="#146EEB" transform="translate(80,14)" />
+<ns0:path d="M0,0 L68,0 L68,21 L23,21 L23,64 L68,64 L68,84 L0,84 Z " fill="#F5321E" transform="translate(12,14)" />
+<ns0:path d="M0,0 L48,0 L48,19 L0,19 Z M14,6 L14,13 L35,13 L35,6 Z " fill="#19B446" transform="translate(56,47)" />
+</ns0:svg>

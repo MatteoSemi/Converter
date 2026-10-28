@@ -1,0 +1,934 @@
+{
+  "platform": "Linux-6.18.55-x86_64-with-glibc2.41",
+  "python": "3.12.14 (main, Aug 25 2026, 14:00:49) [Clang 22.1.3 ]",
+  "versions": {
+    "Pillow": "11.3.0",
+    "vtracer": "0.6.12",
+    "CairoSVG": "2.8.2",
+    "PySide6": "6.9.3",
+    "pytest": "8.4.2"
+  },
+  "ghostscript": "10.05.1",
+  "potrace": "potrace 1.16. Copyright (C) 2001-2019 Peter Selinger.",
+  "notes": [
+    "Differences are measured on the final EPS render using matching canvas and background.",
+    "A similarity number alone does not prove preservation of lettering, holes or fine details.",
+    "Photograph input is a bundled public-domain US Navy Grace Hopper portrait thumbnail."
+  ],
+  "conversions": [
+    {
+      "fixture": "lettering counters punctuation",
+      "mode": "smooth",
+      "elapsed_seconds": 0.5618,
+      "input_sha256_before": "d3f9ed8ef992cb8dd9bd797023da81f07fa911083162e18609b0a7c98b17fb3e",
+      "input_sha256_after": "d3f9ed8ef992cb8dd9bd797023da81f07fa911083162e18609b0a7c98b17fb3e",
+      "output": "smooth/lettering counters punctuation-smooth/lettering counters punctuation.eps",
+      "output_bytes": 5027,
+      "inspection": {
+        "valid_header": true,
+        "bounding_box": [
+          0.0,
+          0.0,
+          162.0,
+          62.0
+        ],
+        "hires_bounding_box": [
+          0.0,
+          0.0,
+          162.0,
+          61.5
+        ],
+        "vector_only": true,
+        "raster_operators": [],
+        "interpreter_exit": 0
+      },
+      "metrics": {
+        "mae": 0.7602755194218608,
+        "max_error": 153,
+        "changed_fraction": 0.009541553748870822,
+        "substantial": false,
+        "note": "sRGB byte-space RGB differences against final rendering, >8/255 changed-pixel threshold; not perceptual or proof of detail preservation"
+      },
+      "warnings": [
+        "EPS uses DeviceRGB sRGB numeric values; EPS has no portable embedded sRGB profile. Viewer/printer colour settings can change appearance.",
+        "Smooth tracing approximates raster artwork. Gradients/photos and antialiased lettering may produce many paths or visible differences; inspect enlarged previews. Lower path counts can reduce fidelity.",
+        "Preserve detail uses unsimplified traced contours (VTracer fitting=none, Potrace alphamax=0). Pixel stair steps can remain; the detail slider affects curve fitting only when smoothing is enabled."
+      ],
+      "status": "passed"
+    },
+    {
+      "fixture": "thin corners dots",
+      "mode": "smooth",
+      "elapsed_seconds": 0.6351,
+      "input_sha256_before": "8507d0a1aa1c64eb7e13ca7b361502e1aa9da1df68c349cfaab2e9be81c6da26",
+      "input_sha256_after": "8507d0a1aa1c64eb7e13ca7b361502e1aa9da1df68c349cfaab2e9be81c6da26",
+      "output": "smooth/thin corners dots-smooth/thin corners dots.eps",
+      "output_bytes": 3880,
+      "inspection": {
+        "valid_header": true,
+        "bounding_box": [
+          0.0,
+          0.0,
+          99.0,
+          60.0
+        ],
+        "hires_bounding_box": [
+          0.0,
+          0.0,
+          98.25,
+          59.25
+        ],
+        "vector_only": true,
+        "raster_operators": [],
+        "interpreter_exit": 0
+      },
+      "metrics": {
+        "mae": 0.0,
+        "max_error": 0,
+        "changed_fraction": 0.0,
+        "substantial": false,
+        "note": "sRGB byte-space RGB differences against final rendering, >8/255 changed-pixel threshold; not perceptual or proof of detail preservation"
+      },
+      "warnings": [
+        "EPS uses DeviceRGB sRGB numeric values; EPS has no portable embedded sRGB profile. Viewer/printer colour settings can change appearance.",
+        "Smooth tracing approximates raster artwork. Gradients/photos and antialiased lettering may produce many paths or visible differences; inspect enlarged previews. Lower path counts can reduce fidelity.",
+        "Preserve detail uses unsimplified traced contours (VTracer fitting=none, Potrace alphamax=0). Pixel stair steps can remain; the detail slider affects curve fitting only when smoothing is enabled."
+      ],
+      "status": "passed"
+    },
+    {
+      "fixture": "adjacent colours nested holes",
+      "mode": "smooth",
+      "elapsed_seconds": 0.5697,
+      "input_sha256_before": "e861ebe3fc29f20fed5451e1631ab13168947ac09b991e57a360ddcf3f4c753b",
+      "input_sha256_after": "e861ebe3fc29f20fed5451e1631ab13168947ac09b991e57a360ddcf3f4c753b",
+      "output": "smooth/adjacent colours nested holes-smooth/adjacent colours nested holes.eps",
+      "output_bytes": 2915,
+      "inspection": {
+        "valid_header": true,
+        "bounding_box": [
+          0.0,
+          0.0,
+          120.0,
+          84.0
+        ],
+        "hires_bounding_box": [
+          0.0,
+          0.0,
+          120.0,
+          84.0
+        ],
+        "vector_only": true,
+        "raster_operators": [],
+        "interpreter_exit": 0
+      },
+      "metrics": {
+        "mae": 0.0,
+        "max_error": 0,
+        "changed_fraction": 0.0,
+        "substantial": false,
+        "note": "sRGB byte-space RGB differences against final rendering, >8/255 changed-pixel threshold; not perceptual or proof of detail preservation"
+      },
+      "warnings": [
+        "EPS uses DeviceRGB sRGB numeric values; EPS has no portable embedded sRGB profile. Viewer/printer colour settings can change appearance.",
+        "Smooth tracing approximates raster artwork. Gradients/photos and antialiased lettering may produce many paths or visible differences; inspect enlarged previews. Lower path counts can reduce fidelity.",
+        "Preserve detail uses unsimplified traced contours (VTracer fitting=none, Potrace alphamax=0). Pixel stair steps can remain; the detail slider affects curve fitting only when smoothing is enabled."
+      ],
+      "status": "passed"
+    },
+    {
+      "fixture": "binary transparency",
+      "mode": "smooth",
+      "elapsed_seconds": 0.5889,
+      "input_sha256_before": "9a69963174ed023cd1ca2d13163cc37cefd75c9232c8c8f5f9c30b09d18816ab",
+      "input_sha256_after": "9a69963174ed023cd1ca2d13163cc37cefd75c9232c8c8f5f9c30b09d18816ab",
+      "output": "smooth/binary transparency-smooth/binary transparency.eps",
+      "output_bytes": 5099,
+      "inspection": {
+        "valid_header": true,
+        "bounding_box": [
+          0.0,
+          0.0,
+          75.0,
+          53.0
+        ],
+        "hires_bounding_box": [
+          0.0,
+          0.0,
+          75.0,
+          52.5
+        ],
+        "vector_only": true,
+        "raster_operators": [],
+        "interpreter_exit": 0
+      },
+      "metrics": {
+        "mae": 0.0,
+        "max_error": 0,
+        "changed_fraction": 0.0,
+        "substantial": false,
+        "note": "sRGB byte-space RGB differences against final rendering, >8/255 changed-pixel threshold; not perceptual or proof of detail preservation"
+      },
+      "warnings": [
+        "EPS uses DeviceRGB sRGB numeric values; EPS has no portable embedded sRGB profile. Viewer/printer colour settings can change appearance.",
+        "Smooth tracing approximates raster artwork. Gradients/photos and antialiased lettering may produce many paths or visible differences; inspect enlarged previews. Lower path counts can reduce fidelity.",
+        "Preserve detail uses unsimplified traced contours (VTracer fitting=none, Potrace alphamax=0). Pixel stair steps can remain; the detail slider affects curve fitting only when smoothing is enabled."
+      ],
+      "status": "passed"
+    },
+    {
+      "fixture": "gradient",
+      "mode": "smooth",
+      "elapsed_seconds": 0.7358,
+      "input_sha256_before": "a71d7fdcabb1773427f80087f5303b685267d90ab98abe2f983196625e23979c",
+      "input_sha256_after": "a71d7fdcabb1773427f80087f5303b685267d90ab98abe2f983196625e23979c",
+      "output": "smooth/gradient-smooth/gradient.eps",
+      "output_bytes": 10567,
+      "inspection": {
+        "valid_header": true,
+        "bounding_box": [
+          0.0,
+          0.0,
+          72.0,
+          36.0
+        ],
+        "hires_bounding_box": [
+          0.0,
+          0.0,
+          72.0,
+          36.0
+        ],
+        "vector_only": true,
+        "raster_operators": [],
+        "interpreter_exit": 0
+      },
+      "metrics": {
+        "mae": 9.84765625,
+        "max_error": 46,
+        "changed_fraction": 0.8350694444444444,
+        "substantial": true,
+        "note": "sRGB byte-space RGB differences against final rendering, >8/255 changed-pixel threshold; not perceptual or proof of detail preservation"
+      },
+      "warnings": [
+        "EPS uses DeviceRGB sRGB numeric values; EPS has no portable embedded sRGB profile. Viewer/printer colour settings can change appearance.",
+        "Smooth tracing approximates raster artwork. Gradients/photos and antialiased lettering may produce many paths or visible differences; inspect enlarged previews. Lower path counts can reduce fidelity.",
+        "Preserve detail uses unsimplified traced contours (VTracer fitting=none, Potrace alphamax=0). Pixel stair steps can remain; the detail slider affects curve fitting only when smoothing is enabled.",
+        "Substantial rendered differences detected. Inspect counters, thin lines, colour boundaries and enlarged differences before using this artwork."
+      ],
+      "status": "passed"
+    },
+    {
+      "fixture": "photograph",
+      "mode": "smooth",
+      "elapsed_seconds": 0.7382,
+      "input_sha256_before": "49c249da6c934a1fb6d18dc8424ba234202c051231da422fa6823e63c6b1101e",
+      "input_sha256_after": "49c249da6c934a1fb6d18dc8424ba234202c051231da422fa6823e63c6b1101e",
+      "output": "smooth/photograph-smooth/photograph.eps",
+      "output_bytes": 33990,
+      "inspection": {
+        "valid_header": true,
+        "bounding_box": [
+          0.0,
+          0.0,
+          60.0,
+          72.0
+        ],
+        "hires_bounding_box": [
+          0.0,
+          0.0,
+          60.0,
+          72.0
+        ],
+        "vector_only": true,
+        "raster_operators": [],
+        "interpreter_exit": 0
+      },
+      "metrics": {
+        "mae": 17.83263888888889,
+        "max_error": 216,
+        "changed_fraction": 0.558203125,
+        "substantial": true,
+        "note": "sRGB byte-space RGB differences against final rendering, >8/255 changed-pixel threshold; not perceptual or proof of detail preservation"
+      },
+      "warnings": [
+        "EPS uses DeviceRGB sRGB numeric values; EPS has no portable embedded sRGB profile. Viewer/printer colour settings can change appearance.",
+        "Smooth tracing approximates raster artwork. Gradients/photos and antialiased lettering may produce many paths or visible differences; inspect enlarged previews. Lower path counts can reduce fidelity.",
+        "Preserve detail uses unsimplified traced contours (VTracer fitting=none, Potrace alphamax=0). Pixel stair steps can remain; the detail slider affects curve fitting only when smoothing is enabled.",
+        "Substantial rendered differences detected. Inspect counters, thin lines, colour boundaries and enlarged differences before using this artwork."
+      ],
+      "status": "passed"
+    },
+    {
+      "fixture": "wide margins",
+      "mode": "smooth",
+      "elapsed_seconds": 0.5987,
+      "input_sha256_before": "72d88873e3ed6049956080b5f50146addf61d0955d8f19975ff8c3c1f823fe8b",
+      "input_sha256_after": "72d88873e3ed6049956080b5f50146addf61d0955d8f19975ff8c3c1f823fe8b",
+      "output": "smooth/wide margins-smooth/wide margins.eps",
+      "output_bytes": 2807,
+      "inspection": {
+        "valid_header": true,
+        "bounding_box": [
+          0.0,
+          0.0,
+          132.0,
+          46.0
+        ],
+        "hires_bounding_box": [
+          0.0,
+          0.0,
+          131.5067579862,
+          45.5023383146
+        ],
+        "vector_only": true,
+        "raster_operators": [],
+        "interpreter_exit": 0
+      },
+      "metrics": {
+        "mae": 0.0,
+        "max_error": 0,
+        "changed_fraction": 0.0,
+        "substantial": false,
+        "note": "sRGB byte-space RGB differences against final rendering, >8/255 changed-pixel threshold; not perceptual or proof of detail preservation"
+      },
+      "warnings": [
+        "EPS uses DeviceRGB sRGB numeric values; EPS has no portable embedded sRGB profile. Viewer/printer colour settings can change appearance.",
+        "Smooth tracing approximates raster artwork. Gradients/photos and antialiased lettering may produce many paths or visible differences; inspect enlarged previews. Lower path counts can reduce fidelity.",
+        "Preserve detail uses unsimplified traced contours (VTracer fitting=none, Potrace alphamax=0). Pixel stair steps can remain; the detail slider affects curve fitting only when smoothing is enabled."
+      ],
+      "status": "passed"
+    },
+    {
+      "fixture": "blank",
+      "mode": "smooth",
+      "elapsed_seconds": 0.5057,
+      "input_sha256_before": "06ec343f3b34525703959515c8416674294d13c9286a505e68b91a20a97234e7",
+      "input_sha256_after": "06ec343f3b34525703959515c8416674294d13c9286a505e68b91a20a97234e7",
+      "output": "smooth/blank-smooth/blank.eps",
+      "output_bytes": 2606,
+      "inspection": {
+        "valid_header": true,
+        "bounding_box": [
+          0.0,
+          0.0,
+          51.0,
+          33.0
+        ],
+        "hires_bounding_box": [
+          0.0,
+          0.0,
+          50.25,
+          32.25
+        ],
+        "vector_only": true,
+        "raster_operators": [],
+        "interpreter_exit": 0
+      },
+      "metrics": {
+        "mae": 0.0,
+        "max_error": 0,
+        "changed_fraction": 0.0,
+        "substantial": false,
+        "note": "sRGB byte-space RGB differences against final rendering, >8/255 changed-pixel threshold; not perceptual or proof of detail preservation"
+      },
+      "warnings": [
+        "EPS uses DeviceRGB sRGB numeric values; EPS has no portable embedded sRGB profile. Viewer/printer colour settings can change appearance.",
+        "Smooth tracing approximates raster artwork. Gradients/photos and antialiased lettering may produce many paths or visible differences; inspect enlarged previews. Lower path counts can reduce fidelity.",
+        "Preserve detail uses unsimplified traced contours (VTracer fitting=none, Potrace alphamax=0). Pixel stair steps can remain; the detail slider affects curve fitting only when smoothing is enabled."
+      ],
+      "status": "passed"
+    },
+    {
+      "fixture": "fully transparent",
+      "mode": "smooth",
+      "elapsed_seconds": 0.5508,
+      "input_sha256_before": "e5ef3f9d49ad3a091309c0adaaed923515fc67fe11afe67cd31dc447e278c155",
+      "input_sha256_after": "e5ef3f9d49ad3a091309c0adaaed923515fc67fe11afe67cd31dc447e278c155",
+      "output": "smooth/fully transparent-smooth/fully transparent.eps",
+      "output_bytes": 2531,
+      "inspection": {
+        "valid_header": true,
+        "bounding_box": [
+          0.0,
+          0.0,
+          51.0,
+          33.0
+        ],
+        "hires_bounding_box": [
+          0.0,
+          0.0,
+          50.25,
+          32.25
+        ],
+        "vector_only": true,
+        "raster_operators": [],
+        "interpreter_exit": 0
+      },
+      "metrics": {
+        "mae": 0.0,
+        "max_error": 0,
+        "changed_fraction": 0.0,
+        "substantial": false,
+        "note": "sRGB byte-space RGB differences against final rendering, >8/255 changed-pixel threshold; not perceptual or proof of detail preservation"
+      },
+      "warnings": [
+        "EPS uses DeviceRGB sRGB numeric values; EPS has no portable embedded sRGB profile. Viewer/printer colour settings can change appearance.",
+        "Smooth tracing approximates raster artwork. Gradients/photos and antialiased lettering may produce many paths or visible differences; inspect enlarged previews. Lower path counts can reduce fidelity.",
+        "Preserve detail uses unsimplified traced contours (VTracer fitting=none, Potrace alphamax=0). Pixel stair steps can remain; the detail slider affects curve fitting only when smoothing is enabled."
+      ],
+      "status": "passed"
+    },
+    {
+      "fixture": "\u00dcbergr\u00f6\u00df\u00e9 \u6587\u4ef6 with spaces",
+      "mode": "smooth",
+      "elapsed_seconds": 0.6506,
+      "input_sha256_before": "7ffd23e6e62d5e02093047e44f4081ff33e38074a52300d45d408cd645ed8269",
+      "input_sha256_after": "7ffd23e6e62d5e02093047e44f4081ff33e38074a52300d45d408cd645ed8269",
+      "output": "smooth/\u00dcbergr\u00f6\u00df\u00e9 \u6587\u4ef6 with spaces-smooth/\u00dcbergr\u00f6\u00df\u00e9 \u6587\u4ef6 with spaces.eps",
+      "output_bytes": 2585,
+      "inspection": {
+        "valid_header": true,
+        "bounding_box": [
+          0.0,
+          0.0,
+          16.0,
+          10.0
+        ],
+        "hires_bounding_box": [
+          0.0,
+          0.0,
+          15.75,
+          9.75
+        ],
+        "vector_only": true,
+        "raster_operators": [],
+        "interpreter_exit": 0
+      },
+      "metrics": {
+        "mae": 0.0,
+        "max_error": 0,
+        "changed_fraction": 0.0,
+        "substantial": false,
+        "note": "sRGB byte-space RGB differences against final rendering, >8/255 changed-pixel threshold; not perceptual or proof of detail preservation"
+      },
+      "warnings": [
+        "EPS uses DeviceRGB sRGB numeric values; EPS has no portable embedded sRGB profile. Viewer/printer colour settings can change appearance.",
+        "Smooth tracing approximates raster artwork. Gradients/photos and antialiased lettering may produce many paths or visible differences; inspect enlarged previews. Lower path counts can reduce fidelity.",
+        "Preserve detail uses unsimplified traced contours (VTracer fitting=none, Potrace alphamax=0). Pixel stair steps can remain; the detail slider affects curve fitting only when smoothing is enabled."
+      ],
+      "status": "passed"
+    },
+    {
+      "fixture": "icc sRGB",
+      "mode": "smooth",
+      "elapsed_seconds": 0.6226,
+      "input_sha256_before": "4e152cd17feb1b4b4861eaf54233ed255db7f0519f521d9397bac744488890bd",
+      "input_sha256_after": "4e152cd17feb1b4b4861eaf54233ed255db7f0519f521d9397bac744488890bd",
+      "output": "smooth/icc sRGB-smooth/icc sRGB.eps",
+      "output_bytes": 2554,
+      "inspection": {
+        "valid_header": true,
+        "bounding_box": [
+          0.0,
+          0.0,
+          18.0,
+          12.0
+        ],
+        "hires_bounding_box": [
+          0.0,
+          0.0,
+          18.0,
+          12.0
+        ],
+        "vector_only": true,
+        "raster_operators": [],
+        "interpreter_exit": 0
+      },
+      "metrics": {
+        "mae": 0.0,
+        "max_error": 0,
+        "changed_fraction": 0.0,
+        "substantial": false,
+        "note": "sRGB byte-space RGB differences against final rendering, >8/255 changed-pixel threshold; not perceptual or proof of detail preservation"
+      },
+      "warnings": [
+        "Embedded ICC profile converted to sRGB with LittleCMS, relative colorimetric intent; alpha was preserved.",
+        "EPS uses DeviceRGB sRGB numeric values; EPS has no portable embedded sRGB profile. Viewer/printer colour settings can change appearance.",
+        "Smooth tracing approximates raster artwork. Gradients/photos and antialiased lettering may produce many paths or visible differences; inspect enlarged previews. Lower path counts can reduce fidelity.",
+        "Preserve detail uses unsimplified traced contours (VTracer fitting=none, Potrace alphamax=0). Pixel stair steps can remain; the detail slider affects curve fitting only when smoothing is enabled."
+      ],
+      "status": "passed"
+    },
+    {
+      "fixture": "lettering counters punctuation",
+      "mode": "pixel",
+      "elapsed_seconds": 0.163,
+      "input_sha256_before": "d3f9ed8ef992cb8dd9bd797023da81f07fa911083162e18609b0a7c98b17fb3e",
+      "input_sha256_after": "d3f9ed8ef992cb8dd9bd797023da81f07fa911083162e18609b0a7c98b17fb3e",
+      "output": "pixel/lettering counters punctuation-pixel/lettering counters punctuation.eps",
+      "output_bytes": 4218,
+      "inspection": {
+        "valid_header": true,
+        "bounding_box": [
+          0.0,
+          0.0,
+          162.0,
+          62.0
+        ],
+        "hires_bounding_box": [
+          0.0,
+          0.0,
+          162.0,
+          61.5
+        ],
+        "vector_only": true,
+        "raster_operators": [],
+        "interpreter_exit": 0
+      },
+      "metrics": {
+        "mae": 0.0,
+        "max_error": 0,
+        "changed_fraction": 0.0,
+        "substantial": false,
+        "note": "sRGB byte-space RGB differences against final rendering, >8/255 changed-pixel threshold; not perceptual or proof of detail preservation"
+      },
+      "warnings": [
+        "EPS uses DeviceRGB sRGB numeric values; EPS has no portable embedded sRGB profile. Viewer/printer colour settings can change appearance.",
+        "Pixel mode preserves the decoded sRGB grid and ignores smooth-trace detail, smoothing, colour precision and component-removal controls. Stair-stepped edges remain; rectangle counts and files can be very large."
+      ],
+      "status": "passed"
+    },
+    {
+      "fixture": "thin corners dots",
+      "mode": "pixel",
+      "elapsed_seconds": 0.2091,
+      "input_sha256_before": "8507d0a1aa1c64eb7e13ca7b361502e1aa9da1df68c349cfaab2e9be81c6da26",
+      "input_sha256_after": "8507d0a1aa1c64eb7e13ca7b361502e1aa9da1df68c349cfaab2e9be81c6da26",
+      "output": "pixel/thin corners dots-pixel/thin corners dots.eps",
+      "output_bytes": 1494,
+      "inspection": {
+        "valid_header": true,
+        "bounding_box": [
+          0.0,
+          0.0,
+          99.0,
+          60.0
+        ],
+        "hires_bounding_box": [
+          0.0,
+          0.0,
+          98.25,
+          59.25
+        ],
+        "vector_only": true,
+        "raster_operators": [],
+        "interpreter_exit": 0
+      },
+      "metrics": {
+        "mae": 0.0,
+        "max_error": 0,
+        "changed_fraction": 0.0,
+        "substantial": false,
+        "note": "sRGB byte-space RGB differences against final rendering, >8/255 changed-pixel threshold; not perceptual or proof of detail preservation"
+      },
+      "warnings": [
+        "EPS uses DeviceRGB sRGB numeric values; EPS has no portable embedded sRGB profile. Viewer/printer colour settings can change appearance.",
+        "Pixel mode preserves the decoded sRGB grid and ignores smooth-trace detail, smoothing, colour precision and component-removal controls. Stair-stepped edges remain; rectangle counts and files can be very large."
+      ],
+      "status": "passed"
+    },
+    {
+      "fixture": "adjacent colours nested holes",
+      "mode": "pixel",
+      "elapsed_seconds": 0.1643,
+      "input_sha256_before": "e861ebe3fc29f20fed5451e1631ab13168947ac09b991e57a360ddcf3f4c753b",
+      "input_sha256_after": "e861ebe3fc29f20fed5451e1631ab13168947ac09b991e57a360ddcf3f4c753b",
+      "output": "pixel/adjacent colours nested holes-pixel/adjacent colours nested holes.eps",
+      "output_bytes": 914,
+      "inspection": {
+        "valid_header": true,
+        "bounding_box": [
+          0.0,
+          0.0,
+          120.0,
+          84.0
+        ],
+        "hires_bounding_box": [
+          0.0,
+          0.0,
+          120.0,
+          84.0
+        ],
+        "vector_only": true,
+        "raster_operators": [],
+        "interpreter_exit": 0
+      },
+      "metrics": {
+        "mae": 0.0,
+        "max_error": 0,
+        "changed_fraction": 0.0,
+        "substantial": false,
+        "note": "sRGB byte-space RGB differences against final rendering, >8/255 changed-pixel threshold; not perceptual or proof of detail preservation"
+      },
+      "warnings": [
+        "EPS uses DeviceRGB sRGB numeric values; EPS has no portable embedded sRGB profile. Viewer/printer colour settings can change appearance.",
+        "Pixel mode preserves the decoded sRGB grid and ignores smooth-trace detail, smoothing, colour precision and component-removal controls. Stair-stepped edges remain; rectangle counts and files can be very large."
+      ],
+      "status": "passed"
+    },
+    {
+      "fixture": "binary transparency",
+      "mode": "pixel",
+      "elapsed_seconds": 0.208,
+      "input_sha256_before": "9a69963174ed023cd1ca2d13163cc37cefd75c9232c8c8f5f9c30b09d18816ab",
+      "input_sha256_after": "9a69963174ed023cd1ca2d13163cc37cefd75c9232c8c8f5f9c30b09d18816ab",
+      "output": "pixel/binary transparency-pixel/binary transparency.eps",
+      "output_bytes": 1524,
+      "inspection": {
+        "valid_header": true,
+        "bounding_box": [
+          0.0,
+          0.0,
+          75.0,
+          53.0
+        ],
+        "hires_bounding_box": [
+          0.0,
+          0.0,
+          75.0,
+          52.5
+        ],
+        "vector_only": true,
+        "raster_operators": [],
+        "interpreter_exit": 0
+      },
+      "metrics": {
+        "mae": 0.0,
+        "max_error": 0,
+        "changed_fraction": 0.0,
+        "substantial": false,
+        "note": "sRGB byte-space RGB differences against final rendering, >8/255 changed-pixel threshold; not perceptual or proof of detail preservation"
+      },
+      "warnings": [
+        "EPS uses DeviceRGB sRGB numeric values; EPS has no portable embedded sRGB profile. Viewer/printer colour settings can change appearance.",
+        "Pixel mode preserves the decoded sRGB grid and ignores smooth-trace detail, smoothing, colour precision and component-removal controls. Stair-stepped edges remain; rectangle counts and files can be very large."
+      ],
+      "status": "passed"
+    },
+    {
+      "fixture": "gradient",
+      "mode": "pixel",
+      "elapsed_seconds": 0.2334,
+      "input_sha256_before": "a71d7fdcabb1773427f80087f5303b685267d90ab98abe2f983196625e23979c",
+      "input_sha256_after": "a71d7fdcabb1773427f80087f5303b685267d90ab98abe2f983196625e23979c",
+      "output": "pixel/gradient-pixel/gradient.eps",
+      "output_bytes": 368872,
+      "inspection": {
+        "valid_header": true,
+        "bounding_box": [
+          0.0,
+          0.0,
+          72.0,
+          36.0
+        ],
+        "hires_bounding_box": [
+          0.0,
+          0.0,
+          72.0,
+          36.0
+        ],
+        "vector_only": true,
+        "raster_operators": [],
+        "interpreter_exit": 0
+      },
+      "metrics": {
+        "mae": 0.0,
+        "max_error": 0,
+        "changed_fraction": 0.0,
+        "substantial": false,
+        "note": "sRGB byte-space RGB differences against final rendering, >8/255 changed-pixel threshold; not perceptual or proof of detail preservation"
+      },
+      "warnings": [
+        "EPS uses DeviceRGB sRGB numeric values; EPS has no portable embedded sRGB profile. Viewer/printer colour settings can change appearance.",
+        "Pixel mode preserves the decoded sRGB grid and ignores smooth-trace detail, smoothing, colour precision and component-removal controls. Stair-stepped edges remain; rectangle counts and files can be very large."
+      ],
+      "status": "passed"
+    },
+    {
+      "fixture": "photograph",
+      "mode": "pixel",
+      "elapsed_seconds": 0.2979,
+      "input_sha256_before": "49c249da6c934a1fb6d18dc8424ba234202c051231da422fa6823e63c6b1101e",
+      "input_sha256_after": "49c249da6c934a1fb6d18dc8424ba234202c051231da422fa6823e63c6b1101e",
+      "output": "pixel/photograph-pixel/photograph.eps",
+      "output_bytes": 581567,
+      "inspection": {
+        "valid_header": true,
+        "bounding_box": [
+          0.0,
+          0.0,
+          60.0,
+          72.0
+        ],
+        "hires_bounding_box": [
+          0.0,
+          0.0,
+          60.0,
+          72.0
+        ],
+        "vector_only": true,
+        "raster_operators": [],
+        "interpreter_exit": 0
+      },
+      "metrics": {
+        "mae": 0.0,
+        "max_error": 0,
+        "changed_fraction": 0.0,
+        "substantial": false,
+        "note": "sRGB byte-space RGB differences against final rendering, >8/255 changed-pixel threshold; not perceptual or proof of detail preservation"
+      },
+      "warnings": [
+        "EPS uses DeviceRGB sRGB numeric values; EPS has no portable embedded sRGB profile. Viewer/printer colour settings can change appearance.",
+        "Pixel mode preserves the decoded sRGB grid and ignores smooth-trace detail, smoothing, colour precision and component-removal controls. Stair-stepped edges remain; rectangle counts and files can be very large."
+      ],
+      "status": "passed"
+    },
+    {
+      "fixture": "wide margins",
+      "mode": "pixel",
+      "elapsed_seconds": 0.2134,
+      "input_sha256_before": "72d88873e3ed6049956080b5f50146addf61d0955d8f19975ff8c3c1f823fe8b",
+      "input_sha256_after": "72d88873e3ed6049956080b5f50146addf61d0955d8f19975ff8c3c1f823fe8b",
+      "output": "pixel/wide margins-pixel/wide margins.eps",
+      "output_bytes": 613,
+      "inspection": {
+        "valid_header": true,
+        "bounding_box": [
+          0.0,
+          0.0,
+          132.0,
+          46.0
+        ],
+        "hires_bounding_box": [
+          0.0,
+          0.0,
+          131.5067579862,
+          45.5023383146
+        ],
+        "vector_only": true,
+        "raster_operators": [],
+        "interpreter_exit": 0
+      },
+      "metrics": {
+        "mae": 0.0,
+        "max_error": 0,
+        "changed_fraction": 0.0,
+        "substantial": false,
+        "note": "sRGB byte-space RGB differences against final rendering, >8/255 changed-pixel threshold; not perceptual or proof of detail preservation"
+      },
+      "warnings": [
+        "EPS uses DeviceRGB sRGB numeric values; EPS has no portable embedded sRGB profile. Viewer/printer colour settings can change appearance.",
+        "Pixel mode preserves the decoded sRGB grid and ignores smooth-trace detail, smoothing, colour precision and component-removal controls. Stair-stepped edges remain; rectangle counts and files can be very large."
+      ],
+      "status": "passed"
+    },
+    {
+      "fixture": "blank",
+      "mode": "pixel",
+      "elapsed_seconds": 0.1552,
+      "input_sha256_before": "06ec343f3b34525703959515c8416674294d13c9286a505e68b91a20a97234e7",
+      "input_sha256_after": "06ec343f3b34525703959515c8416674294d13c9286a505e68b91a20a97234e7",
+      "output": "pixel/blank-pixel/blank.eps",
+      "output_bytes": 299,
+      "inspection": {
+        "valid_header": true,
+        "bounding_box": [
+          0.0,
+          0.0,
+          51.0,
+          33.0
+        ],
+        "hires_bounding_box": [
+          0.0,
+          0.0,
+          50.25,
+          32.25
+        ],
+        "vector_only": true,
+        "raster_operators": [],
+        "interpreter_exit": 0
+      },
+      "metrics": {
+        "mae": 0.0,
+        "max_error": 0,
+        "changed_fraction": 0.0,
+        "substantial": false,
+        "note": "sRGB byte-space RGB differences against final rendering, >8/255 changed-pixel threshold; not perceptual or proof of detail preservation"
+      },
+      "warnings": [
+        "EPS uses DeviceRGB sRGB numeric values; EPS has no portable embedded sRGB profile. Viewer/printer colour settings can change appearance.",
+        "Pixel mode preserves the decoded sRGB grid and ignores smooth-trace detail, smoothing, colour precision and component-removal controls. Stair-stepped edges remain; rectangle counts and files can be very large."
+      ],
+      "status": "passed"
+    },
+    {
+      "fixture": "fully transparent",
+      "mode": "pixel",
+      "elapsed_seconds": 0.1578,
+      "input_sha256_before": "e5ef3f9d49ad3a091309c0adaaed923515fc67fe11afe67cd31dc447e278c155",
+      "input_sha256_after": "e5ef3f9d49ad3a091309c0adaaed923515fc67fe11afe67cd31dc447e278c155",
+      "output": "pixel/fully transparent-pixel/fully transparent.eps",
+      "output_bytes": 262,
+      "inspection": {
+        "valid_header": true,
+        "bounding_box": [
+          0.0,
+          0.0,
+          51.0,
+          33.0
+        ],
+        "hires_bounding_box": [
+          0.0,
+          0.0,
+          50.25,
+          32.25
+        ],
+        "vector_only": true,
+        "raster_operators": [],
+        "interpreter_exit": 0
+      },
+      "metrics": {
+        "mae": 0.0,
+        "max_error": 0,
+        "changed_fraction": 0.0,
+        "substantial": false,
+        "note": "sRGB byte-space RGB differences against final rendering, >8/255 changed-pixel threshold; not perceptual or proof of detail preservation"
+      },
+      "warnings": [
+        "EPS uses DeviceRGB sRGB numeric values; EPS has no portable embedded sRGB profile. Viewer/printer colour settings can change appearance.",
+        "Pixel mode preserves the decoded sRGB grid and ignores smooth-trace detail, smoothing, colour precision and component-removal controls. Stair-stepped edges remain; rectangle counts and files can be very large."
+      ],
+      "status": "passed"
+    },
+    {
+      "fixture": "\u00dcbergr\u00f6\u00df\u00e9 \u6587\u4ef6 with spaces",
+      "mode": "pixel",
+      "elapsed_seconds": 0.2052,
+      "input_sha256_before": "7ffd23e6e62d5e02093047e44f4081ff33e38074a52300d45d408cd645ed8269",
+      "input_sha256_after": "7ffd23e6e62d5e02093047e44f4081ff33e38074a52300d45d408cd645ed8269",
+      "output": "pixel/\u00dcbergr\u00f6\u00df\u00e9 \u6587\u4ef6 with spaces-pixel/\u00dcbergr\u00f6\u00df\u00e9 \u6587\u4ef6 with spaces.eps",
+      "output_bytes": 342,
+      "inspection": {
+        "valid_header": true,
+        "bounding_box": [
+          0.0,
+          0.0,
+          16.0,
+          10.0
+        ],
+        "hires_bounding_box": [
+          0.0,
+          0.0,
+          15.75,
+          9.75
+        ],
+        "vector_only": true,
+        "raster_operators": [],
+        "interpreter_exit": 0
+      },
+      "metrics": {
+        "mae": 0.0,
+        "max_error": 0,
+        "changed_fraction": 0.0,
+        "substantial": false,
+        "note": "sRGB byte-space RGB differences against final rendering, >8/255 changed-pixel threshold; not perceptual or proof of detail preservation"
+      },
+      "warnings": [
+        "EPS uses DeviceRGB sRGB numeric values; EPS has no portable embedded sRGB profile. Viewer/printer colour settings can change appearance.",
+        "Pixel mode preserves the decoded sRGB grid and ignores smooth-trace detail, smoothing, colour precision and component-removal controls. Stair-stepped edges remain; rectangle counts and files can be very large."
+      ],
+      "status": "passed"
+    },
+    {
+      "fixture": "icc sRGB",
+      "mode": "pixel",
+      "elapsed_seconds": 0.2112,
+      "input_sha256_before": "4e152cd17feb1b4b4861eaf54233ed255db7f0519f521d9397bac744488890bd",
+      "input_sha256_after": "4e152cd17feb1b4b4861eaf54233ed255db7f0519f521d9397bac744488890bd",
+      "output": "pixel/icc sRGB-pixel/icc sRGB.eps",
+      "output_bytes": 342,
+      "inspection": {
+        "valid_header": true,
+        "bounding_box": [
+          0.0,
+          0.0,
+          18.0,
+          12.0
+        ],
+        "hires_bounding_box": [
+          0.0,
+          0.0,
+          18.0,
+          12.0
+        ],
+        "vector_only": true,
+        "raster_operators": [],
+        "interpreter_exit": 0
+      },
+      "metrics": {
+        "mae": 0.0,
+        "max_error": 0,
+        "changed_fraction": 0.0,
+        "substantial": false,
+        "note": "sRGB byte-space RGB differences against final rendering, >8/255 changed-pixel threshold; not perceptual or proof of detail preservation"
+      },
+      "warnings": [
+        "Embedded ICC profile converted to sRGB with LittleCMS, relative colorimetric intent; alpha was preserved.",
+        "EPS uses DeviceRGB sRGB numeric values; EPS has no portable embedded sRGB profile. Viewer/printer colour settings can change appearance.",
+        "Pixel mode preserves the decoded sRGB grid and ignores smooth-trace detail, smoothing, colour precision and component-removal controls. Stair-stepped edges remain; rectangle counts and files can be very large."
+      ],
+      "status": "passed"
+    },
+    {
+      "fixture": "partial edges",
+      "mode": "pixel",
+      "alpha_policy": "composite",
+      "status": "passed",
+      "output": "composite/partial edges-pixel/partial edges.eps",
+      "metrics": {
+        "mae": 0.0,
+        "max_error": 0,
+        "changed_fraction": 0.0,
+        "substantial": false,
+        "note": "sRGB byte-space RGB differences against final rendering, >8/255 changed-pixel threshold; not perceptual or proof of detail preservation"
+      },
+      "warnings": [
+        "Partial transparency was explicitly composited against #1872c3; EPS has no general alpha.",
+        "EPS uses DeviceRGB sRGB numeric values; EPS has no portable embedded sRGB profile. Viewer/printer colour settings can change appearance.",
+        "Pixel mode preserves the decoded sRGB grid and ignores smooth-trace detail, smoothing, colour precision and component-removal controls. Stair-stepped edges remain; rectangle counts and files can be very large."
+      ],
+      "input_sha256_before": "52bde279b5b81214503dccb737eb83ed275cea4bc0187dc6e24a7df767869159",
+      "input_sha256_after": "52bde279b5b81214503dccb737eb83ed275cea4bc0187dc6e24a7df767869159"
+    },
+    {
+      "fixture": "partial edges",
+      "mode": "pixel",
+      "alpha_policy": "retain",
+      "status": "passed",
+      "output": "retain/partial edges-alpha/partial edges.svg",
+      "metrics": {
+        "mae": 0.20796676441837733,
+        "max_error": 1,
+        "changed_fraction": 0.0,
+        "substantial": false,
+        "note": "sRGB byte-space RGB differences against final rendering, >8/255 changed-pixel threshold; not perceptual or proof of detail preservation"
+      },
+      "warnings": [
+        "EPS was not created: partial alpha requires SVG/PDF. This explicit alternative uses pixel rectangles and preserves the pixel grid, not smooth reconstructed edges.",
+        "Pixel mode preserves the decoded sRGB grid and ignores smooth-trace detail, smoothing, colour precision and component-removal controls. Stair-stepped edges remain; rectangle counts and files can be very large."
+      ],
+      "input_sha256_before": "52bde279b5b81214503dccb737eb83ed275cea4bc0187dc6e24a7df767869159",
+      "input_sha256_after": "52bde279b5b81214503dccb737eb83ed275cea4bc0187dc6e24a7df767869159"
+    }
+  ]
+}
