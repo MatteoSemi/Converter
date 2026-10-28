@@ -110,3 +110,43 @@ The tests exercise actual EPS conversion/rendering, bounds, orientation, input h
 EPS raster detection executes Ghostscript with `image`, `colorimage`, and `imagemask` instrumented in `systemdict`, covering bound aliases and compressed exporter output. Negative bitmap EPS fixtures must be detected. This is an audit of **locally generated** EPS, not a security proof for arbitrary hostile PostScript. Ghostscript runs with `SAFER`; keep your system Ghostscript patched. Never open untrusted EPS with an outdated interpreter.
 
 See `TEST_RESULTS.md` and `evidence/report.json` for actual results and limitations, rather than treating the screenshots or similarity measurements as evidence alone.
+
+### Single-colour lines and preview backgrounds
+
+Choose **Output colours → Black lines only** or **White lines only** to extract
+solid black or white artwork with all other areas transparent. The adjustable
+**Line brightness cutoff** has a slider and numeric entry (0–255), defaulting to
+128: black keeps pixels below the cutoff, white keeps pixels at or above it.
+Raise it to retain more dark features in black mode; lower it to retain more
+light features in white mode. **Minimum line opacity** (1–255, default 128) sets
+how faint a source stroke can be before it is removed. Lower it to recover faint,
+partially transparent strokes. Kept strokes become solid black or white; fully
+transparent source pixels always stay transparent. These are intentional
+thresholding operations and can change antialiased edges.
+
+Select a queued PNG and open the **Line selection** tab to inspect changes live
+as you adjust either cutoff. This uses the same colour-managed pixel selection
+as conversion, before tracing, smoothing or cleanup. The preview uses a neutral
+grey background unless you choose a preview background. It is limited to sources
+of at most 4 million pixels; larger images can still be converted with the chosen
+cutoffs. **Convert again to update vector files**: cutoff changes never edit
+existing exports. Both tracing and pixel modes support line extraction.
+Comparison metrics use the extracted artwork as their reference.
+
+Use **Preview background…** in the top-right toolbar to view white artwork on a
+dark or coloured background. It updates existing synchronized and overlay views
+without reconverting or changing exports or the compositing setting. Opaque areas
+in the artwork remain opaque. Difference images use the selected display background;
+the reported metrics remain those saved at conversion time. Until a preview
+background is chosen, completed results use their conversion-time comparison
+background.
+
+CLI equivalent:
+
+```sh
+python -m pngvector.cli input.png -o converted --line-color black --line-threshold 160 --line-alpha-threshold 32
+```
+
+Default `--line-color all` preserves the existing colour and partial-transparency
+workflow. Line extraction instead applies the explicit opacity cutoff and leaves
+all other pixels transparent.

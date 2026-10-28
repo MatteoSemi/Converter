@@ -53,6 +53,9 @@ class Options:
     dpi: float | None = None
     max_pixels: int = 4_000_000
     force_large: bool = False
+    line_color: str = "all"
+    line_threshold: int = 128
+    line_alpha_threshold: int = 128
 
 
 @dataclass
@@ -68,6 +71,41 @@ class Result:
     dpi: float
     path_count: int
     extras: list[Path] = field(default_factory=list)
+    comparison_background: str = "#ffffff"
+
+
+def validate_line_options(options):
+    if options.line_color not in ("all", "black", "white"):
+        raise ConversionError("Line colour must be all, black or white.")
+    if type(options.line_threshold) is not int or not 0 <= options.line_threshold <= 255:
+        raise ConversionError("Line brightness cutoff must be an integer from 0 to 255.")
+    if type(options.line_alpha_threshold) is not int or not 1 <= options.line_alpha_threshold <= 255:
+        raise ConversionError("Line opacity cutoff must be an integer from 1 to 255.")
+
+
+def extract_lines(image, options):
+    """Shared selection for exports and the before-tracing preview; no resampling."""
+    validate_line_options(options)
+    rgba = image.convert("RGBA")
+    if options.line_color == "all":
+        return rgba
+    luminance = rgba.convert("RGB").convert("L")
+    threshold = options.line_threshold
+    mask = luminance.point(lambda value: 255 if (value < threshold if options.line_color == "black" else value >= threshold) else 0)
+    # An opacity cutoff of at least 1 keeps fully transparent pixels unpainted.
+    alpha = rgba.getchannel("A").point(lambda value: 255 if value >= options.line_alpha_threshold else 0)
+    selected = Image.new("RGBA", rgba.size, options.line_color)
+    selected.putalpha(ImageChops.multiply(mask, alpha))
+    return selected
+
+
+def load_selection_source(source):
+    """Load a colour-managed source for an exact, bounded interactive preview."""
+    width, height = _png_info(source)
+    if width * height > 4_000_000:
+        raise LargeImageError("Live selection preview is limited to 4 million pixels. You can still convert this image with the chosen cutoffs.")
+    # Selection uses pixel coordinates; physical DPI is chosen for export.
+    return _load(source, Options(dpi=96))[0]
 
 
 def _check(cancelled):
@@ -408,6 +446,7 @@ def convert(source, output_dir, options=None, progress=None, cancelled=None):
             raise ConversionError("Detail must be 0–10, smoothing 0–1, colour precision 1–8 and component removal nonnegative.")
         if options.alpha_policy not in ("ask","composite","retain"):
             raise ConversionError("Unknown transparency policy.")
+        validate_line_options(options)
         info=estimate(source,options)
         if info["large"] and not options.force_large:
             raise LargeImageError(f"Large image: {info['pixels']:,} pixels; estimated worst-case vector size {info['estimated_bytes']/1_000_000:.1f} MB. Confirm explicitly to continue, or reduce the source dimensions yourself.")
@@ -417,6 +456,9 @@ def convert(source, output_dir, options=None, progress=None, cancelled=None):
         original_hash=_hash(source)
         progress(0.02,"Reading PNG and colour profile")
         rgba,dpi,warnings=_load(source,options)
+        if options.line_color != "all":
+            rgba = extract_lines(rgba, options)
+            warnings.append(f"Intentional {options.line_color}-line extraction at brightness cutoff {options.line_threshold}; other pixels are transparent. Opacity cutoff is {options.line_alpha_threshold}/255. Metrics compare against the extracted artwork.")
         width,height=rgba.size
         alpha=rgba.getchannel("A")
         histogram=alpha.histogram()
@@ -440,11 +482,12 @@ def convert(source, output_dir, options=None, progress=None, cancelled=None):
         preview_path=target_folder/(stem+".preview.png")
         reference=Image.alpha_composite(Image.new("RGBA",rgba.size,(*background,255)),rgba).convert("RGB")
         reference.save(reference_path)
+        rgba.save(target_folder/(stem+".reference-alpha.png"))
         progress(0.1,"Building editable vector geometry")
         _check(cancelled)
         with tempfile.TemporaryDirectory(prefix="pngvector-") as temp:
             work=Path(temp)
-            extras=[]
+            extras=[target_folder/(stem+".reference-alpha.png"), target_folder/(stem+".preview-alpha.png")]
             if options.mode=="pixel" or retain:
                 if options.mode=="pixel":
                     warnings.append("Pixel mode preserves the decoded sRGB grid and ignores smooth-trace detail, smoothing, colour precision and component-removal controls. Stair-stepped edges remain; rectangle counts and files can be very large.")
@@ -462,6 +505,7 @@ def convert(source, output_dir, options=None, progress=None, cancelled=None):
                     # comes from retained SVG and is clearly labelled in report.
                     raster=work/"alpha-preview.png"
                     _cairo_export("png",svg,raster,cancelled,output_width=width,output_height=height)
+                    shutil.copyfile(raster, target_folder/(stem+".preview-alpha.png"))
                     with Image.open(raster) as rendered:
                         preview=Image.alpha_composite(Image.new("RGBA",rgba.size,(*background,255)),rendered.convert("RGBA")).convert("RGB")
                     preview.save(preview_path)
@@ -509,7 +553,7 @@ def convert(source, output_dir, options=None, progress=None, cancelled=None):
                 inspection=inspect_eps(output,cancelled=cancelled)
                 if not inspection["valid_header"] or not inspection["vector_only"]:
                     raise ConversionError(f"EPS verification failed: embedded raster painting or invalid header detected ({inspection}).")
-                render_eps(output,preview_path,width,height,dpi,options.background,cancelled=cancelled)
+                render_eps(output,preview_path,width,height,dpi,options.background,cancelled=cancelled, transparent_output=target_folder/(stem+".preview-alpha.png"))
         progress(0.9,"Comparing final rendering with source")
         with Image.open(preview_path) as preview:
             metrics,difference=_metrics(reference,preview)
@@ -526,7 +570,7 @@ def convert(source, output_dir, options=None, progress=None, cancelled=None):
         report_path.write_text(json.dumps(report,indent=2),encoding="utf-8")
         extras.append(report_path)
         progress(1.0,"Conversion verified")
-        return Result(source,output,preview_path,reference_path,metrics,warnings,width,height,dpi,path_count,extras)
+        return Result(source,output,preview_path,reference_path,metrics,warnings,width,height,dpi,path_count,extras,comparison_background=options.background)
     except (AlphaPolicyRequired,LargeImageError,Cancelled):
         if target_folder:
             shutil.rmtree(target_folder,ignore_errors=True)

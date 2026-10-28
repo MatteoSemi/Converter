@@ -7,17 +7,18 @@ from threading import Event
 import sys
 
 from PIL import Image, ImageChops, ImageEnhance
-from PySide6.QtCore import Qt, QThread, Signal, QSettings
+from PySide6.QtCore import Qt, QThread, Signal, QSettings, QTimer
 from PySide6.QtGui import QColor, QImage, QPixmap, QPainter
 from PySide6.QtWidgets import (
     QApplication, QCheckBox, QColorDialog, QComboBox, QDoubleSpinBox,
     QFileDialog, QFormLayout, QGraphicsScene, QGraphicsView, QHBoxLayout,
     QLabel, QLineEdit, QListWidget, QMainWindow, QMessageBox, QPlainTextEdit,
     QProgressBar, QPushButton, QSlider, QSpinBox, QSplitter, QTabWidget,
-    QVBoxLayout, QWidget, QAbstractItemView, QGroupBox,
+    QVBoxLayout, QWidget, QAbstractItemView, QGroupBox, QScrollArea,
 )
 
-from .core import Options, convert, estimate, Cancelled, ConversionError, AlphaPolicyRequired
+from .core import (Options, convert, estimate, Cancelled, ConversionError,
+                   AlphaPolicyRequired, extract_lines, load_selection_source)
 
 
 def _pixmap(path_or_image):
@@ -131,7 +132,7 @@ class ConversionWorker(QThread):
                         self.stop.set()
                         break
                     options = replace(options, force_large=True)
-                if details.get('partial_alpha') and options.alpha_policy == 'ask':
+                if details.get('partial_alpha') and options.alpha_policy == 'ask' and options.line_color == 'all':
                     policy = self.ask('alpha', {'source': source, 'background': options.background})
                     if policy is None:
                         self.stop.set()
@@ -177,6 +178,11 @@ class MainWindow(QMainWindow):
         self.current_result = None
         self.zoom = 1.0
         self.syncing = False
+        self._selection_cache = None
+        self.selection_timer = QTimer(self)
+        self.selection_timer.setSingleShot(True)
+        self.selection_timer.setInterval(120)
+        self.selection_timer.timeout.connect(self.refresh_line_selection)
         self.setAcceptDrops(True)
         main = QWidget()
         self.setCentralWidget(main)
@@ -210,10 +216,44 @@ class MainWindow(QMainWindow):
 
         group = QGroupBox('Conversion and fidelity')
         form = QFormLayout(group)
+        form.setRowWrapPolicy(QFormLayout.RowWrapPolicy.WrapLongRows)
         self.mode = QComboBox()
         self.mode.addItem('Trace artwork — editable vector paths (approximation)', 'smooth')
         self.mode.addItem('Exact pixel grid — merged vector rectangles', 'pixel')
         form.addRow('Mode', self.mode)
+        self.line_color = QComboBox()
+        for label, value in [('All colours', 'all'), ('Black lines only — other pixels transparent', 'black'), ('White lines only — other pixels transparent', 'white')]:
+            self.line_color.addItem(label, value)
+        form.addRow('Output colours', self.line_color)
+        self.line_threshold = QSpinBox()
+        self.line_threshold.setRange(0, 255)
+        self.line_threshold.setValue(128)
+        self.line_threshold.setToolTip('Black keeps brightness below this cutoff; white keeps brightness at or above it. Adjust while inspecting the Line selection tab.')
+
+        def cutoff_row(spin):
+            row = QHBoxLayout()
+            slider = QSlider(Qt.Orientation.Horizontal)
+            slider.setRange(spin.minimum(), spin.maximum())
+            slider.setValue(spin.value())
+            slider.setToolTip(spin.toolTip())
+            slider.valueChanged.connect(spin.setValue)
+            spin.valueChanged.connect(slider.setValue)
+            spin.valueChanged.connect(self.line_options_changed)
+            row.addWidget(slider, 1)
+            row.addWidget(spin)
+            return row, slider
+
+        cutoff, self.line_threshold_slider = cutoff_row(self.line_threshold)
+        form.addRow('Line brightness cutoff (0–255)', cutoff)
+        self.line_alpha_threshold = QSpinBox()
+        self.line_alpha_threshold.setRange(1, 255)
+        self.line_alpha_threshold.setValue(128)
+        self.line_alpha_threshold.setToolTip('Lower this cutoff to retain faint, partially transparent strokes. Kept strokes become opaque. Fully transparent pixels always stay transparent.')
+        cutoff, self.line_alpha_slider = cutoff_row(self.line_alpha_threshold)
+        form.addRow('Minimum line opacity (1–255)', cutoff)
+        self.line_hint = QLabel()
+        self.line_hint.setWordWrap(True)
+        form.addRow(self.line_hint)
         self.tracer = QComboBox()
         for label, value in [('Automatic (Potrace for black/white)', 'auto'), ('VTracer — colour', 'vtracer'), ('Potrace — black/white only', 'potrace')]:
             self.tracer.addItem(label, value)
@@ -247,7 +287,8 @@ class MainWindow(QMainWindow):
         self.background = QPushButton('#ffffff')
         self.background.clicked.connect(self.pick_background)
         form.addRow('Composite / comparison background', self.background)
-        self.use_dpi = QCheckBox('Override PNG resolution (otherwise use metadata or 96 DPI)')
+        self.use_dpi = QCheckBox('Override PNG DPI')
+        self.use_dpi.setToolTip('Otherwise use PNG resolution metadata or 96 DPI.')
         self.dpi = QDoubleSpinBox()
         self.dpi.setRange(1, 9600)
         self.dpi.setValue(96)
@@ -260,7 +301,15 @@ class MainWindow(QMainWindow):
         self.preserve = QPushButton('Restore Preserve detail defaults')
         self.preserve.clicked.connect(self.preserve_defaults)
         form.addRow(self.preserve)
-        controls.addWidget(group)
+        for combo in [self.mode, self.line_color, self.tracer, self.alpha]:
+            combo.setSizeAdjustPolicy(QComboBox.SizeAdjustPolicy.AdjustToMinimumContentsLengthWithIcon)
+            combo.setMinimumContentsLength(12)
+        # Keep conversion settings reachable on smaller laptop displays.
+        settings_scroll = QScrollArea()
+        settings_scroll.setWidgetResizable(True)
+        settings_scroll.setWidget(group)
+        settings_scroll.setMinimumHeight(200)
+        controls.addWidget(settings_scroll, 1)
         self.mode.currentIndexChanged.connect(self.mode_changed)
         note = QLabel('Tracing is an approximation. Zero smoothing retains unsimplified contours; pixel stair steps can remain. Text is traced as shapes; fonts are never substituted. '
                       'Lower path counts can lose detail. Exact pixel mode retains stair-stepped edges and may create huge files. '
@@ -281,14 +330,23 @@ class MainWindow(QMainWindow):
         previews = QVBoxLayout(right)
         splitter.addWidget(right)
         splitter.setSizes([480, 800])
+        toolbar_hint = QLabel('Both previews: drag to pan; wheel or buttons to zoom')
+        toolbar_hint.setWordWrap(True)
+        previews.addWidget(toolbar_hint)
         toolbar = QHBoxLayout()
-        toolbar.addWidget(QLabel('Both previews: drag to pan; wheel or buttons to zoom'))
+        toolbar.addStretch()
         for label, callback in [('−', lambda: self.change_zoom(.8)), ('+', lambda: self.change_zoom(1.25)), ('100%', lambda: self.set_zoom(1)), ('Fit', self.fit_preview)]:
             button = QPushButton(label)
+            button.setFixedWidth(48)
             button.clicked.connect(callback)
             toolbar.addWidget(button)
         self.zoom_label = QLabel('100%')
         toolbar.addWidget(self.zoom_label)
+        self.preview_background = QPushButton('Preview background…')
+        self.preview_colour = None  # Use each conversion's background until explicitly changed.
+        self.preview_background.clicked.connect(self.pick_preview_background)
+        self.preview_background.setToolTip('Changes the viewing background only; exported artwork is unchanged.')
+        toolbar.addWidget(self.preview_background)
         previews.addLayout(toolbar)
         self.tabs = QTabWidget()
         previews.addWidget(self.tabs, 1)
@@ -313,7 +371,20 @@ class MainWindow(QMainWindow):
         self.blend.valueChanged.connect(self.update_blend)
         overlay_layout.addWidget(self.blend)
         self.tabs.addTab(overlay, 'Overlay comparison')
-        self.diff = QCheckBox('Show amplified (4×) absolute RGB difference in converted pane')
+        selection = QWidget()
+        selection_layout = QVBoxLayout(selection)
+        self.selection_note = QLabel('Choose black or white lines and select a PNG to preview the cutoffs before converting.')
+        self.selection_note.setWordWrap(True)
+        selection_layout.addWidget(self.selection_note)
+        self.line_selection_view = ImageView()
+        self.line_selection_view.zoom_requested.connect(lambda factor: self.line_selection_view.scale(factor, factor))
+        selection_layout.addWidget(self.line_selection_view, 1)
+        fit_selection = QPushButton('Fit selection preview')
+        fit_selection.clicked.connect(self.fit_line_selection)
+        selection_layout.addWidget(fit_selection)
+        self.tabs.addTab(selection, 'Line selection')
+        self.diff = QCheckBox('Show amplified (4×) RGB difference')
+        self.diff.setToolTip('Shows absolute RGB difference in the converted pane using the current preview background.')
         self.diff.toggled.connect(self.refresh_images)
         previews.addWidget(self.diff)
         self.report = QLabel('Convert a PNG to inspect the final EPS. EPS is rendered with Ghostscript at matching canvas dimensions.\n'
@@ -334,6 +405,8 @@ class MainWindow(QMainWindow):
         self.log.setReadOnly(True)
         self.log.setMaximumHeight(120)
         outer.addWidget(self.log)
+        self.line_color.currentIndexChanged.connect(self.line_options_changed)
+        self.line_options_changed()
 
     def dragEnterEvent(self, event):
         if event.mimeData().hasUrls():
@@ -381,6 +454,75 @@ class MainWindow(QMainWindow):
             self.background.setText(colour.name())
             self.background.setStyleSheet(f'background-color: {colour.name()}; color: {"black" if colour.lightness() > 128 else "white"}')
 
+    def pick_preview_background(self):
+        colour = QColorDialog.getColor(QColor(self.effective_preview_colour()), self, 'Choose preview background (display only)')
+        if colour.isValid():
+            self.set_preview_background(colour.name())
+
+    def set_preview_background(self, colour):
+        colour = QColor(colour)
+        if not colour.isValid():
+            return
+        self.preview_colour = colour.name()
+        for view in [self.original_view, self.converted_view, self.overlay_view]:
+            view.setBackgroundBrush(QColor(self.preview_colour))
+        self.refresh_images()
+        self.selection_timer.start()
+
+    def effective_preview_colour(self):
+        return self.preview_colour or (self.current_result.comparison_background if self.current_result else self.background.text())
+
+    def line_options_changed(self):
+        enabled = self.line_color.currentData() != 'all'
+        for control in [self.line_threshold, self.line_threshold_slider, self.line_alpha_threshold, self.line_alpha_slider]:
+            control.setEnabled(enabled)
+        self.alpha.setEnabled(not enabled)
+        if enabled:
+            direction = 'Raise brightness to keep more dark features.' if self.line_color.currentData() == 'black' else 'Lower brightness to keep more light features.'
+            self.line_hint.setText(direction + ' Lower minimum opacity to keep faint strokes. Check the Line selection tab; reconvert to update vector files.')
+        else:
+            self.line_hint.setText('All colours preserves the source colours and uses the selected transparency policy.')
+        self.selection_timer.start()
+
+    def refresh_line_selection(self):
+        row = self.files.currentRow()
+        if self.line_color.currentData() == 'all' or row < 0:
+            self.line_selection_view.scene().clear()
+            self.line_selection_view.items = []
+            self.selection_note.setText('Choose black or white lines and select a PNG to preview the cutoffs before converting.')
+            return
+        source = Path(self.files.item(row).data(Qt.ItemDataRole.UserRole))
+        try:
+            stat = source.stat()
+            key = (source, stat.st_mtime_ns, stat.st_size)
+            changed = self._selection_cache is None or self._selection_cache[0] != key
+            if changed:
+                self._selection_cache = (key, load_selection_source(source))
+            options = Options(line_color=self.line_color.currentData(), line_threshold=self.line_threshold.value(),
+                              line_alpha_threshold=self.line_alpha_threshold.value())
+            selected = extract_lines(self._selection_cache[1], options)
+            kept = selected.getchannel('A').histogram()[255]
+            # A neutral background keeps either line colour visible by default.
+            background = self.preview_colour or '#808080'
+            display = Image.alpha_composite(Image.new('RGBA', selected.size, background), selected)
+            self.line_selection_view.setBackgroundBrush(QColor(background))
+            self.line_selection_view.set_images(display)
+            if changed:
+                self.fit_line_selection()
+            self.selection_note.setText(f'{source.name}: {kept:,} of {selected.width * selected.height:,} pixels kept. '
+                                        'Live pixel selection before tracing; smoothing and cleanup may change the final vector. '
+                                        'Existing exports stay unchanged until you convert again.')
+        except (ConversionError, OSError, ValueError) as exc:
+            self.line_selection_view.scene().clear()
+            self.line_selection_view.items = []
+            self._selection_cache = None
+            self.selection_note.setText(f'Cannot preview selection: {exc}')
+
+    def fit_line_selection(self):
+        rect = self.line_selection_view.sceneRect()
+        if self.line_selection_view.items and not rect.isEmpty():
+            self.line_selection_view.fitInView(rect, Qt.AspectRatioMode.KeepAspectRatio)
+
     def preserve_defaults(self):
         self.detail.setValue(6)
         self.smoothing.setValue(0)
@@ -400,7 +542,8 @@ class MainWindow(QMainWindow):
             QMessageBox.information(self, 'Choose output folder', 'Choose a writable output folder before converting.')
             return
         files = [self.files.item(i).data(Qt.ItemDataRole.UserRole) for i in range(self.files.count())]
-        options = Options(mode=self.mode.currentData(), tracer=self.tracer.currentData(),
+        options = Options(line_color=self.line_color.currentData(), line_threshold=self.line_threshold.value(),
+                          line_alpha_threshold=self.line_alpha_threshold.value(), mode=self.mode.currentData(), tracer=self.tracer.currentData(),
                           detail=self.detail.value(), smoothing=self.smoothing.value(),
                           color_precision=self.precision.value(), min_component=self.components.value(),
                           alpha_policy=self.alpha.currentData(), background=self.background.text(),
@@ -486,6 +629,7 @@ class MainWindow(QMainWindow):
         self.cancel.setEnabled(False)
 
     def show_selected(self, row):
+        self.selection_timer.start()
         if row >= 0:
             source = self.files.item(row).data(Qt.ItemDataRole.UserRole)
             if source in self.results:
@@ -496,18 +640,28 @@ class MainWindow(QMainWindow):
         result = self.current_result
         if result is None:
             return
+        def display_image(path):
+            alpha_path = path.with_name(path.stem + '-alpha' + path.suffix)
+            with Image.open(alpha_path if alpha_path.exists() else path) as image:
+                rgba = image.convert('RGBA')
+                return Image.alpha_composite(Image.new('RGBA', rgba.size, self.effective_preview_colour()), rgba).convert('RGB')
+        reference = display_image(result.reference)
+        preview = display_image(result.preview)
+        views = [self.original_view, self.converted_view, self.overlay_view]
+        centers = [view.mapToScene(view.viewport().rect().center()) for view in views]
         self.syncing = True
         try:
-            self.original_view.set_images(result.reference)
+            self.original_view.set_images(reference)
             if self.diff.isChecked():
-                with Image.open(result.reference) as a, Image.open(result.preview) as b:
-                    difference = ImageEnhance.Brightness(ImageChops.difference(a.convert('RGB'), b.convert('RGB'))).enhance(4)
-                    self.converted_view.set_images(difference)
+                difference = ImageEnhance.Brightness(ImageChops.difference(reference, preview)).enhance(4)
+                self.converted_view.set_images(difference)
             else:
-                self.converted_view.set_images(result.preview)
-            self.overlay_view.set_images(result.reference, result.preview)
-            for view in [self.original_view, self.converted_view, self.overlay_view]:
+                self.converted_view.set_images(preview)
+            self.overlay_view.set_images(reference, preview)
+            for view, center in zip(views, centers):
+                view.setBackgroundBrush(QColor(self.effective_preview_colour()))
                 view.set_zoom(self.zoom)
+                view.centerOn(center)
             self.update_blend(self.blend.value())
         finally:
             self.syncing = False
@@ -518,7 +672,7 @@ class MainWindow(QMainWindow):
                             f'{result.width} × {result.height} px; {result.dpi:g} DPI; {result.path_count:,} vector shapes. '
                             f'Mean absolute RGB error: {metrics.get("mae", 0):.3f}/255; '
                             f'maximum: {metrics.get("max_error", 0)}; pixels with >8/255 channel error: {changed:.2%}.\n'
-                            'Scores do not prove preservation of important details. Inspect holes, fine lines, seams, lettering and margins.\n'
+                            'Metrics use the conversion-time comparison background. Inspect holes, fine lines, seams, lettering and margins.\n'
                             + '\n'.join(result.warnings))
 
     def update_blend(self, value):

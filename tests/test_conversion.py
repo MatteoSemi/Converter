@@ -324,3 +324,24 @@ def test_potrace_explicit_when_available(fixtures, tmp_path):
 def test_potrace_does_not_discard_colour(fixtures, tmp_path):
     with pytest.raises(ConversionError):
         convert(fixtures["gradient"], tmp_path, Options(tracer="potrace"))
+
+
+@pytest.mark.parametrize('mode', ['pixel', 'smooth'])
+@pytest.mark.parametrize('colour', ['black', 'white'])
+def test_line_extraction_exports_only_selected_colour(mode, colour, tmp_path):
+    source = tmp_path / 'lines.png'
+    image = Image.new('RGBA', (40, 20), 'white')
+    for x in range(20):
+        for y in range(20):
+            image.putpixel((x, y), (30, 30, 30, 255))
+    image.putpixel((30, 10), (255, 255, 255, 0))
+    image.save(source)
+    original = digest(source)
+    result = convert(source, tmp_path / 'out', Options(mode=mode, line_color=colour))
+    with Image.open(result.preview.with_name('lines.preview-alpha.png')) as preview:
+        assert preview.getpixel((5, 10))[3] == (255 if colour == 'black' else 0)
+        assert preview.getpixel((35, 10))[3] == (255 if colour == 'white' else 0)
+        rgb = (0, 0, 0) if colour == 'black' else (255, 255, 255)
+        assert preview.getpixel((5 if colour == 'black' else 35, 10))[:3] == rgb
+    assert inspect_eps(result.output)['vector_only']
+    assert digest(source) == original

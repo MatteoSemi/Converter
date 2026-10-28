@@ -167,3 +167,31 @@ def test_large_header_only_estimate_still_prompts_for_partial_alpha(app, fixture
     assert window.current_result is not None, window.log.toPlainText()
     assert window.current_result.output.suffix == '.eps'
     window.close()
+
+
+def test_white_lines_preview_background_updates_without_export_changes(app, tmp_path):
+    from PIL import Image
+    from hashlib import sha256
+    window = MainWindow()
+    source = tmp_path / 'white.png'
+    image = Image.new('RGB', (30, 20), 'black')
+    for x in range(10, 20):
+        for y in range(20):
+            image.putpixel((x, y), (255, 255, 255))
+    image.save(source)
+    window.add_files([str(source)])
+    window.folder.setText(str(tmp_path / 'out'))
+    window.line_color.setCurrentIndex(window.line_color.findData('white'))
+    assert window.line_threshold.isEnabled()
+    window.start_conversion()
+    wait_until(app, lambda: window.worker is not None and not window.worker.isRunning())
+    assert window.current_result is not None, window.log.toPlainText()
+    output = window.current_result.output
+    before = sha256(output.read_bytes()).hexdigest()
+    window.set_preview_background('#203050')
+    pixels = window.converted_view.items[0].pixmap().toImage()
+    assert pixels.pixelColor(2, 10).name() == '#203050'
+    assert pixels.pixelColor(15, 10).name() == '#ffffff'
+    assert sha256(output.read_bytes()).hexdigest() == before
+    assert window.background.text() == '#ffffff'
+    window.close()

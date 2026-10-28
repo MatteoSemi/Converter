@@ -118,7 +118,7 @@ def set_canvas_bbox(path, width_points, height_points):
     path.write_bytes(data)
 
 
-def render_eps(path, output, width, height, dpi, background="#ffffff", *, cancelled=None):
+def render_eps(path, output, width, height, dpi, background="#ffffff", *, cancelled=None, transparent_output=None):
     from PIL import Image, ImageColor
     output = Path(output)
     rgb = ImageColor.getrgb(background)
@@ -137,6 +137,8 @@ def render_eps(path, output, width, height, dpi, background="#ffffff", *, cancel
         if image.size != (width, height):
             raise EPSVerificationError(f"Rendered canvas is {image.size}, expected {(width, height)}.")
         rgba = image.convert("RGBA")
+    if transparent_output is not None:
+        rgba.save(transparent_output)
     bg = Image.new("RGBA", rgba.size, (*rgb, 255))
     Image.alpha_composite(bg, rgba).convert("RGB").save(output)
     return output

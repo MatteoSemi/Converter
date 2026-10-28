@@ -2,13 +2,22 @@
 
 This is Python source, not a signed macOS .app. It was tested on Linux; installation and native GUI operation on macOS have **not** been verified. Installation downloads open-source dependencies. Image conversion then stays local.
 
+The updated source package, including adjustable black/white line cutoffs, live
+line-selection previews and preview background selection, is available from:
+
+https://github.com/MatteoSemi/Converter/archive/refs/heads/mac-line-cutoffs-preview-2026-10-28.zip
+
+If you already extracted this package, use that folder for the steps below. Keep
+older installations and your images separate; the setup creates a fresh Mac
+virtual environment inside the new folder.
+
 ## macOS 11.7.10 Big Sur on Intel
 
 Use **MacPorts** for this older macOS version. The original Homebrew setup is intended for newer systems. The original Qt 6.9.3 wheel requires macOS 12; the separate `requirements-macos11.txt` selects Qt 6.6.3.1, whose official wheel targets macOS 11 and includes Intel support. Native macOS execution remains unverified.
 
 1. Install Apple's Command Line Tools: open Terminal, run `xcode-select --install`, and complete the installation if needed. If Terminal says the tools are already installed, continue.
 2. Go to https://www.macports.org/install.php and select the **macOS 11 Big Sur** installer. Install it; choose the version matching Big Sur, rather than the newest macOS package.
-3. Download a **fresh source ZIP** from https://github.com/MatteoSemi/Converter/archive/refs/heads/main.zip and extract it into a new folder. Do not overwrite an older folder containing your images or settings.
+3. Download the **updated source ZIP** linked above and extract it into a new folder. Do not overwrite an older folder containing your images or settings.
 4. In Terminal, type `cd `, drag that new extracted folder from Finder into Terminal, and press Return.
 5. Run:
 
